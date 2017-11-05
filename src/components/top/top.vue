@@ -4,7 +4,10 @@
       <md-button class="md-icon-button" @click="toggleLeftSidenav">
         <md-icon>menu</md-icon>
       </md-button>
-      <h2 id="h3">Vue音乐</h2>
+      <h3 id="h3"> <span>V</span> ue音乐</h3>
+      <router-link to="/search">
+        <p class="iconfont icon-search searchIcon"></p>
+      </router-link>
     </md-toolbar>
     
     <md-sidenav id="zi" :class="{zi2:zBol,zi3:!zBol}" class="md-left" ref="leftSidenav" @open="open('Left')" @close="close('Left')">
@@ -90,7 +93,6 @@ export default {
 }
 </script>
 <style scoped>
-
 .md-title{
   border-bottom: 1px solid #ccc;
 }
@@ -103,6 +105,14 @@ export default {
 }
 #h3{
   font-weight: 400;
+  margin-left: 1rem;
+}
+#h3 span {
+  position: absolute;
+  top: 1rem;
+  left:4.2rem;
+  font-size: 25px;
+  margin-left: 1rem;
 }
 .md-large img{
   width: 25%;
@@ -133,6 +143,25 @@ export default {
   height: 100%;
   position: fixed;
   top:0;
+}
+#i{
+  /* margin-left: 17rem; */
+  font-size: 27px;
+  color: #fff;
+}
+.searchIcon{
+  color:#fff;
+  font-size: 22px;
+  width: 12%;
+  height: 80%;
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  padding-top:1rem;
+  padding-left: 1rem;
+}
+.md-toolbar{
+  min-height:45px;
 }
 .zi2{
   z-index: 10;

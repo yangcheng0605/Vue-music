@@ -26,15 +26,15 @@
         <!-- v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10" -->
       <ul>
         <h3>今日推荐</h3>
-        <li v-for="(item, index) in recommend" :key="item.id" @click="getItem(item)">
-          <div id="list-left">
-              <img :src="item.pic_small" alt="">
+        <li v-for="(item, index) in recommend" :key="item.id" >
+          <div id="list-left" @click="getItem(item)">
+              <img v-lazy="item.pic_small" alt="">
           </div>
-          <div id="list-center">
+          <div id="list-center" @click="getItem(item)">
             <span id="songName">{{item.title}}</span><span class="iconfont icon-sq"></span>
             <p>{{item.author}}</p>
           </div>
-          <div id="list-right">
+          <div id="list-right" @click="play_stop(item)">
             <span class="iconfont" :class="{'icon-play':item.charge===0,spanBG:item.charge===1}"></span>
           </div>
         </li>
@@ -47,8 +47,7 @@ export default {
   data () {
     return {
       liIndex: 0,
-      show: false,
-      playState: false
+      isPlaying: true
     }
   },
   methods: {
@@ -61,23 +60,44 @@ export default {
         }
         this.recommend[i].charge = 0
       }
-      if (this.recommend[index].charge === 1) {
-        this.show = true
-      } else {
-        this.show = false
-      }
+      console.log('进入播放器之后:' + this.recommend[index].charge)
       this.$store.dispatch('getItem', item)
       .then(res => {
-        this.$store.dispatch('getSongLrc')
+        this.$store.dispatch('getSongLrc', item)
+        .then(res => {
+          this.$router.push('/play')
+        })
       })
-      .then(res => {
-        this.$router.push('/play')
-      })
+    },
+    play_stop (item) {
+      var audio = document.querySelector('#audio')
+      var index = this.recommend.indexOf(item)
+      this.recommend[index].charge = this.recommend[index].charge === 0 ? 1 : 0
+      for (var i = 0; i < this.recommend.length; i++) {
+        if (index === i) {
+          continue
+        }
+        this.recommend[i].charge = 0
+      }
+      if (this.playItem !== undefined) {
+        if (item.song_id === this.playItem.song_id) {
+          if (this.isPlaying) {
+            audio.play()
+            this.isPlaying = false
+          } else {
+            audio.pause()
+            this.isPlaying = true
+          }
+        } else {
+          this.recommend[index].charge = 0
+          this.$store.dispatch('getItem', item)
+        }
+      }
     }
   },
   computed: {
     recommend () {
-      return this.$store.state.recommend.list
+      return this.$store.state.recommend
     },
     recommendID () {
       return this.$store.state.recommendID
@@ -90,7 +110,6 @@ export default {
 </script>
 <style scoped>
 #head_top{
-  margin-top: 25%;
 }
 #head_list{
   padding-bottom: 4.5rem;
@@ -123,8 +142,8 @@ export default {
   font-size: 13px;
 }
 #list-right {
-  margin-top: 1rem;
-  margin-right: 2rem;
+  padding-top: 2.5rem;
+  padding-right: 2.5rem;
 }
 #list-right span{
   display: inline-block;
@@ -144,5 +163,12 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+img[lazy=loading] {
+  width: 50px;
+  height: 50px;
+  margin: 30% 25% 0;
+  background: url('./loading.gif') 0 0 no-repeat;
+  background-size:55% 55%;
 }
 </style>

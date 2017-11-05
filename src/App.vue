@@ -1,15 +1,12 @@
 <template>
   <div id="app">
-    <top v-show="this.$route.path != '/play'"></top>
+    <top v-show="this.$route.path != '/play' && this.$route.path != '/search'"></top>
         <transition name="fade">
        <router-view id="router"/>
            </transition>
 
-    <tabBar v-show="this.$route.path != '/play'"></tabBar>
-    <!-- <button @click="getData">222</button> -->
-    <!-- <img :src="this.value.songinfo.pic_small" alt="">-->
-    <!-- <audio src="http://zhangmenshiting.baidu.com/data2/music/238982688/238982688.mp3?xcode=fccdd158ab7704580c0d8753917afb85" autoplay ></audio> -->
-     <audio id="audio" :src="this.playSong" autoplay controls style="hight=50px"  @ended="changeRight()" ></audio>
+    <tabBar v-show="this.$route.path != '/play' && this.$route.path != '/search'"></tabBar>
+     <audio id="audio" :src="this.playSong" autoplay style="hight=50px" @timeupdate= 'updateTime' @loadedmetadata="totlaTm" @ended="changeRight()" ></audio>
   </div>
 </template>
 
@@ -19,10 +16,9 @@ import top from './components/top/top.vue'
 export default {
   created () {
     this.$store.dispatch('getRecommend')
-    .then(res => {
-      this.$store.dispatch('getRecommendShowLink')
-    })
-    this.$store.dispatch('getNewsong')
+    // .then(res => {
+    //   this.$store.dispatch('getRecommendShowLink')
+    // })
   },
   components: {
     top,
@@ -35,29 +31,30 @@ export default {
   methods: {
     changeRight () {
       var item = this.playItem
-      this.$store.dispatch('changeID', item)
+      this.$store.dispatch('changeRight', item)
+      .then(res => {
+        this.$store.dispatch('getSongLrc')
+      })
+    },
+    totlaTm () {
+      var audio = document.querySelector('#audio')
+      this.$store.dispatch('totlaTm', audio.duration)
+    },
+    updateTime () {
+      var audio = document.querySelector('#audio')
+      this.$store.dispatch('updateTime', audio.currentTime)
     }
   },
   computed: {
-    value () {
-      return this.$store.state.song
-    },
     playItem () {
       return this.$store.state.playItem
-    },
-    recommendURL () {
-      return this.$store.state.recommendURL
     },
     playID () {
       return this.$store.state.playID
     },
-    // 播放当前选区ID的歌曲
+    // 播放当前选中ID的歌曲
     playSong () {
-      for (let j = 0; j < this.recommendURL.length; j++) {
-        if (Number(this.playID) === Number(this.recommendURL[j].songinfo.song_id)) {
-          return this.recommendURL[j].bitrate.show_link
-        }
-      }
+      return this.$store.state.playURL.show_link
     }
   }
 }
@@ -81,7 +78,7 @@ a{
   background: #fff;
 }
 #router{
-  margin-top: 17%;
+  /* margin-top: 12%; */
 }
 #audio{
   position: absolute;

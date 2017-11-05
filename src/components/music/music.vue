@@ -10,41 +10,13 @@
         <router-link to="/music/hito" tag="li" :class="{hover:this.$route.path==='/music/hito'}">Hito中文</router-link>
       </ul>
     </div>
-    <transition name="fade2">
+    <!-- <transition name="fade2"> -->
       <router-view id="router2"></router-view>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 <script>
 export default {
-  // created () {
-  //   console.log(this.liBol)
-  // },
-  data () {
-    return {
-    }
-  },
-  methods: {
-    loadMore () {
-      this.loading = true
-      setTimeout(() => {
-        let last = this.recommend[this.recommend.length - 1]
-        for (let i = 1; i <= 5; i++) {
-          this.recommend.push(last + i)
-        }
-        this.loading = false
-      }, 2500)
-    },
-    getItem (index) {
-      this.liIndex = index
-      console.log(this.liIndex)
-    }
-  },
-  computed: {
-    recommend () {
-      return this.$store.state.recommend.song_list
-    }
-  }
 }
 </script>
 <style scoped>
@@ -56,8 +28,8 @@ export default {
   justify-content: space-around;
   align-items: flex-end;
   position: fixed;
-  top:5rem;
-  background: #fff;
+  top:3.8rem;
+  background: rgba(255,255,255,.9);
   z-index: 6;
   padding-top: .3rem;
 }
@@ -66,7 +38,7 @@ export default {
   height: 100%;
   text-align: center;
   line-height: 3rem;
-  font-size: 16px;
+  font-size: 14px;
   transition: all .5s;
   font-weight:500;
 }

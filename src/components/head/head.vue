@@ -62,7 +62,9 @@ export default {
 }
 </script>
 <style scoped>
-#search{
-  width: 300px;
+#head_center{
+  width: 100%;
+  height: 100%;
+  margin-top:4rem;
 }
 </style>

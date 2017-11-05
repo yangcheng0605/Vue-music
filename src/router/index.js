@@ -4,7 +4,7 @@ import Router from 'vue-router'
 // main 页面
 const head = resolve => require(['@/components/head/head'], resolve)
 // mv 页面
-const movies = resolve => require(['@/components/movies/movies'], resolve)
+const singer = resolve => require(['@/components/singer/singer'], resolve)
 // music 页面
 const music = resolve => require(['@/components/music/music'], resolve)
 // music 二级路由
@@ -17,13 +17,15 @@ const recommend = resolve => require(['@/components/music/Recommend/recommend'],
 const talk = resolve => require(['@/components/talk/talk'], resolve)
 // play 播放页面
 const play = resolve => require(['@/components/play/play'], resolve)
+// 搜索 页面
+const search = resolve => require(['@/components/search/search'], resolve)
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '',
+      path: '/',
       redirect: '/music/recommend'
     },
     {
@@ -31,18 +33,14 @@ export default new Router({
       component: head
     },
     {
-      path: '/movies',
-      component: movies
+      path: '/singer',
+      component: singer
     },
     {
       path: '/music',
       component: music,
       /* 二级路由 */
       children: [
-        {
-          path: '',
-          component: recommend
-        },
         {
           path: 'newsong',
           component: newsong
@@ -72,6 +70,10 @@ export default new Router({
     {
       path: '/play',
       component: play
+    },
+    {
+      path: '/search',
+      component: search
     }
   ]
 })

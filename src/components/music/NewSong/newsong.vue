@@ -25,31 +25,12 @@
 </template>
 <script>
 export default {
+  created () {
+    this.$store.dispatch('getNewsong')
+  },
   computed: {
-    playItem () {
-      return this.$store.state.playItem
-    },
-    recommendURL () {
-      return this.$store.state.recommendURL
-    },
-    playID () {
-      return this.$store.state.playID
-    },
-    // 播放当前选区ID的歌曲
-    playSong () {
-      for (let j = 0; j < this.recommendURL.length; j++) {
-        if (Number(this.playID) === Number(this.recommendURL[j].songinfo.song_id)) {
-          return this.recommendURL[j].bitrate.show_link
-        }
-      }
-    }
   },
   methods: {
-    // 当播放完毕后 改变ID为下一首歌ID
-    changeID () {
-      var item = this.playItem
-      this.$store.dispatch('changeID', item)
-    }
   }
 }
 </script>
