@@ -81,11 +81,13 @@ export default {
         }
         this.searchList[i].resource_type = 0
       }
-      this.$store.dispatch('getItem', item)
-      .then(res => {
-        this.$store.dispatch('getSongLrc', item)
-        this.$router.push('/play')
-      })
+      if (item !== this.playItem) {
+        this.$store.dispatch('getItem', item)
+        .then(res => {
+          this.$store.dispatch('getSongLrc', item)
+        })
+      }
+      this.$router.push('/play')
     },
     play_stop (item) {
       console.log(item)

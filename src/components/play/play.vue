@@ -1,5 +1,8 @@
 <template>
-  <div class="play1" :style="{background:playItem.pic_big}">
+  <div class="play1" >
+    <div id="bg">
+      <img :src="playItem.pic_s500" alt="">
+    </div>
     <div id="play_top">
       <div @click="goback">
        <md-icon id="i" >chevron_left</md-icon>
@@ -13,7 +16,7 @@
         </div>
       </div>
       <div>
-        <md-speed-dial id="box" md-open="hover" md-direction="bottom" class="md-fab-top-right" md-theme="s">
+        <md-speed-dial id="box1" md-open="hover" md-direction="bottom" class="md-fab-top-right" md-theme="s">
            <md-button class="md-fab" md-fab-trigger>
             <md-icon md-icon-morph>event</md-icon>
             <md-icon id="add">add</md-icon>
@@ -37,7 +40,6 @@
     <div id="play_center">
       <mt-swipe :auto="0" :showIndicators='false'>
         <mt-swipe-item>
-            <img src="./disc-ip6.png" alt="" >
             <img :src="playItem.pic_big" alt="" v-show="playItem.pic_big!==undefined" :class="{roll:rollBol}">
           <p>{{playItem.title}}</p>
           <p id='lrc'>{{showLrc}}</p>
@@ -82,12 +84,12 @@ export default {
         this.$router.push('/music/recommend')
       } else {
         var value = this.$store.state.playItem
-        if (value.title.has_mv === undefined) {
+        if (value.title.versions === '') {
+          return this.$store.state.playItem
+          } else if (value.title.versions === undefined) {
           value.title = value.title.replace(/\<[^\>]+\>/g,"")
           value.author = value.author.replace(/\<[^\>]+\>/g,"")
           return value
-        } else {
-          return this.$store.state.playItem
         }
       }
     },
@@ -233,16 +235,38 @@ export default {
   color:rgba(255,255,255,.8);
   position: fixed;
 }
+#bg{
+  /* width: 100%;
+  height: 100%;
+  z-index: -100; */
+}
+#bg img{
+  width: 150%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  filter: blur(4px);
+  max-width: 150%;
+}
 #add{
   font-size: 40px;
   margin-top:-.2rem;
   margin-left:.7rem;
 }
+#box1{
+  margin-top:-1rem;
+  width: 60px;
+  height: 70px;
+  color: #fff;
+  font-size: 16px
+}
 #box{
   margin-top:-1rem;
   width: 60px;
   height: 70px;
-  /* border-radius: 50%;  */
+  color: #fff;
+  font-size: 18px;
+  background: rgba(0,0,0,.1)
 }
 #play_top{
   width: 100%;
@@ -268,9 +292,9 @@ export default {
   width: 50%;
 }
 #play_center{
-  width: 80%;
+  width: 100%;
   height: 55%;
-  margin: 10% 10%;
+  margin: 10% 0;
   font-size: 16px;
   line-height: 3rem;
 }
@@ -283,13 +307,6 @@ export default {
 #play_center #box p{
   position: relative;
 }
-#play_center img:nth-of-type(1){
-  position: absolute;
-  width:80%;
-  left: 10%;
-  top: -.7rem;
-  z-index: -1;
-}
 #needle{
   width: 20%;
   position: absolute;
@@ -297,9 +314,9 @@ export default {
   right: 1.3rem;
   transform: rotateZ(90deg);
 }
-#play_center img:nth-of-type(2){
+#play_center img:nth-of-type(1){
   width: 50%;
-  margin: 12% 0 18% 25%;
+  margin: 12% 0 14% 25%;
   border-radius: 50%;
   box-shadow: 0 0 20px 6px #fff;
 }
@@ -308,6 +325,10 @@ export default {
 }
 #play_center p{
   text-align: center;
+}
+#play_center p:nth-of-type(1){
+  font-size: 18px;
+  color:#fff;
 }
 #play_bottom{
   position: fixed;
@@ -325,16 +346,26 @@ export default {
   height: 50px;
   margin-right: 1rem;
   background: none;
-  color:#E4D070;
+  color:#E6C383;
   border: none;
+  
 }
 #play_bottom button:nth-of-type(2){
   margin-right: 11.5rem;
 }
 #play_bottom button span{
+  width:4rem;
+  height: 4rem;
+  line-height: 4rem;
   display: block;
   font-size: 25px;
+  font-weight: bold;
   color: #E6C383;
+  box-shadow: 0 0 10px 1px #333,inset 0 0 10px 2px #ccc;
+  border-radius: 50%;
+}
+#play_bottom button span::before{
+  border-radius: 50%;
 }
 #bottom_top{
   display: flex;
@@ -351,10 +382,9 @@ export default {
 #play_bottom .span_5{
   position: absolute;
   top: 2rem;
-  color: #E6C383;
   z-index: 15;  
   border-radius: 50%;
-  box-shadow: 0px 0px 30px 10px #E6C383;
+  box-shadow:inset 0 0 20px 5px #ccc;
 }
 #play_bottom .span_5 img{
   width: 70px;
@@ -386,8 +416,9 @@ input[type="range"]{
   height:10px;
   appearance: none;
   border-radius: 10px;
+  background: rgba(0,0,0,.8);
 }
-input[type="range"]::tack{
+input[type="range"]::-webkit-slider-tack{
   box-shadow: 0 1px 1px #000, inset 0 .125em .125em #E6C383;
 }
 input[type='range']::-webkit-slider-thumb{
@@ -402,7 +433,8 @@ input[type='range']::-webkit-slider-thumb{
   box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
 }
 #lrc{
-  animation: dh 4s infinite alternate
+  animation: dh 4s infinite alternate;
+  font-size: 18px;
 }
 @keyframes dh {
   0%{

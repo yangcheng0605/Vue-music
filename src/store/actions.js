@@ -117,5 +117,20 @@ export default {
   // 存储搜索歌曲的id
   getSearchId (store, obj) {
     store.commit('GET_SEARCH', obj)
+  },
+  // 获取歌手列表
+  getSinger (store) {
+    return http.get('/api/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.artist.get72HotArtist&format=jsonℴ=1&offset=0&limit=70')
+    .then(res => {
+      console.log(res.data)
+      store.commit('GET_SINGER', res.data)
+    })
+  },
+  // 获取选中歌手的歌曲列表
+  getsingerMsg(store, item) {
+    return http.get('/api/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.artist.getSongList&format=jsonℴ=2&tinguid=' + item.ting_uid +'&offset=0&limits=50')
+    .then(res => {
+      store.commit('GET_SINGER_MSG', res.data.songlist)
+    })
   }
 }

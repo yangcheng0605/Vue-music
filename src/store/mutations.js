@@ -61,5 +61,12 @@ export default {
     state.searchList = obj.search
     console.log(state.searchSongID)
     console.log(state.searchList)
+  },
+  GET_SINGER (state, data) {
+    state.singer = data.artist
+  },
+  GET_SINGER_MSG (state, data) {
+    state.singerlist = data
+    console.log(state.singerlist)
   }
 }

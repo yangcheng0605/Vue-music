@@ -48,7 +48,7 @@ export default {
   color: #795548;
 }
 #router2{
-  margin-top: 25%;
+  margin-top: 22%;
   transition: all 1s ease;
 }
 .fade2-enter-active{

@@ -5,7 +5,8 @@ import App from './App'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-import { InfiniteScroll, Swipe, SwipeItem, Progress, Lazyload, Toast, Indicator } from 'mint-ui'
+// mint-ui
+import { InfiniteScroll, Swipe, SwipeItem, Progress, Lazyload, Toast, Indicator, IndexList, IndexSection } from 'mint-ui'
 import '@/components/reset'
 // vue-material ui
 import VueMaterial from 'vue-material'
@@ -23,6 +24,8 @@ Vue.use(VueMaterial)
 Vue.component(Swipe.name, Swipe)
 Vue.component(SwipeItem.name, SwipeItem)
 Vue.component(Progress.name, Progress)
+Vue.component(IndexList.name, IndexList)
+Vue.component(IndexSection.name, IndexSection)
 // 要用的mint-ui组件
 Vue.config.productionTip = false
 Vue.material.registerTheme('default', {

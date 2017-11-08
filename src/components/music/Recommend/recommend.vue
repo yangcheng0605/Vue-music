@@ -61,13 +61,13 @@ export default {
         this.recommend[i].charge = 0
       }
       console.log('进入播放器之后:' + this.recommend[index].charge)
-      this.$store.dispatch('getItem', item)
-      .then(res => {
-        this.$store.dispatch('getSongLrc', item)
+      if (item !== this.playItem) {
+        this.$store.dispatch('getItem', item)
         .then(res => {
-          this.$router.push('/play')
+          this.$store.dispatch('getSongLrc', item)
         })
-      })
+      }
+      this.$router.push('/play')
     },
     play_stop (item) {
       var audio = document.querySelector('#audio')
@@ -89,7 +89,7 @@ export default {
             this.isPlaying = true
           }
         } else {
-          this.recommend[index].charge = 0
+          this.recommend[index].charge = 1
           this.$store.dispatch('getItem', item)
         }
       }

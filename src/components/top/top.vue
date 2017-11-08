@@ -5,6 +5,9 @@
         <md-icon>menu</md-icon>
       </md-button>
       <h3 id="h3"> <span>V</span> ue音乐</h3>
+      <marquee style="display:inline-block;width:50%">
+        <span id="playhint" v-show="this.playsong.song_id !== undefined">正在播放：{{playsong.title}}…</span>
+      </marquee>
       <router-link to="/search">
         <p class="iconfont icon-search searchIcon"></p>
       </router-link>
@@ -89,6 +92,11 @@ export default {
       console.log('关闭d: ' + ref)
       this.zBol = false
     }
+  },
+  computed: {
+    playsong () {
+      return this.$store.state.playItem
+    }
   }
 }
 </script>
@@ -106,6 +114,7 @@ export default {
 #h3{
   font-weight: 400;
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 #h3 span {
   position: absolute;
@@ -147,6 +156,9 @@ export default {
 #i{
   /* margin-left: 17rem; */
   font-size: 27px;
+  color: #fff;
+}
+#playhint{
   color: #fff;
 }
 .searchIcon{

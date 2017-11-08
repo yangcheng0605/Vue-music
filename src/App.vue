@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
-    <top v-show="this.$route.path != '/play' && this.$route.path != '/search'"></top>
+  <div class="app">
+    <top v-show="this.$route.path != '/play' && this.$route.path != '/search' && this.$route.path != '/singlist'"></top>
         <transition name="fade">
        <router-view id="router"/>
            </transition>
 
-    <tabBar v-show="this.$route.path != '/play' && this.$route.path != '/search'"></tabBar>
+    <tabBar v-show="this.$route.path != '/play' && this.$route.path != '/search' && this.$route.path != '/singlist'"></tabBar>
      <audio id="audio" :src="this.playSong" autoplay style="hight=50px" @timeupdate= 'updateTime' @loadedmetadata="totlaTm" @ended="changeRight()" ></audio>
   </div>
 </template>
@@ -16,9 +16,7 @@ import top from './components/top/top.vue'
 export default {
   created () {
     this.$store.dispatch('getRecommend')
-    // .then(res => {
-    //   this.$store.dispatch('getRecommendShowLink')
-    // })
+    this.$store.dispatch('getSinger')
   },
   components: {
     top,
@@ -59,7 +57,6 @@ export default {
   }
 }
 </script>
-
 <style>
 *{
   margin: 0;
@@ -72,10 +69,11 @@ ul,li,ol{
 a{
   text-decoration: none;
 }
-#app {
+.app {
   width: 100%;
   height: 100%;
   background: #fff;
+  /* overflow: hidden; */
 }
 #router{
   /* margin-top: 12%; */

@@ -24,5 +24,9 @@ export default {
   // 存放搜索歌曲ID
   searchSongID: [],
   // 存放搜索歌曲
-  searchList: []
+  searchList: [],
+  // 存放歌手
+  singer: [],
+  // 存放歌手的歌曲
+  singerlist: []
 }

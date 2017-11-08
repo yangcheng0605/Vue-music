@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 // main 页面
 const head = resolve => require(['@/components/head/head'], resolve)
-// mv 页面
+// singer 页面
 const singer = resolve => require(['@/components/singer/singer'], resolve)
 // music 页面
 const music = resolve => require(['@/components/music/music'], resolve)
@@ -19,6 +19,8 @@ const talk = resolve => require(['@/components/talk/talk'], resolve)
 const play = resolve => require(['@/components/play/play'], resolve)
 // 搜索 页面
 const search = resolve => require(['@/components/search/search'], resolve)
+// 歌手详情页面
+const singlist = resolve => require(['@/components/singerlist/singlist'], resolve)
 
 Vue.use(Router)
 
@@ -74,6 +76,10 @@ export default new Router({
     {
       path: '/search',
       component: search
+    },
+    {
+      path: '/singlist',
+      component: singlist
     }
   ]
 })
