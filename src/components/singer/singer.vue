@@ -3,7 +3,7 @@
     <div id="singer">
       <div id="singer_classify">
         <ul>
-          <li v-for="(item,index) in arr" :class="{active: cityIndex === index}" :key="item.id" @click="changeClassify(item,index)">{{item.name}}</li>
+          <li  v-for="(item,index) in arr" :class="{active: cityIndex === index}" :key="item.id" @click="changeClassify(item,index)">{{item.name}}</li>
         </ul>
         <ul>
           <li v-for="(item,index) in arr2" :class="{active: sexIndex === index}" :key="item.id" @click="changeSex(item,index)">{{item.name}}</li>
@@ -81,9 +81,9 @@ export default {
   methods: {
     getsingerMsg (item) {
       this.$store.dispatch('getsingerMsg', item)
-      // .then(res => {
-      //   this.$router.push('/singlist')
-      // })
+      .then(res => {
+        this.$router.push('/singlist')
+      })
     },
     changeClassify (item, index) {
       this.cityIndex = index
@@ -146,10 +146,10 @@ h3{
 .active{
   background:#795548;
   color: #fff;
-  border-bottom: 3px solid #fff;
 }
 #singer_list{
   padding-top: 9rem;
+  padding-bottom: 5rem;
   width: 100%;
   height: 100%;
   overflow-y: scroll !important;
@@ -159,6 +159,7 @@ h3{
 }
 #nl >>>.mint-indexsection-index{
   padding: 0;
+  padding-left: 1rem;
 }
 #nl >>> .mint-indexlist-content{
   overflow-y: scroll;

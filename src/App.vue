@@ -73,19 +73,9 @@ a{
   width: 100%;
   height: 100%;
   background: #fff;
-  /* overflow: hidden; */
-}
-#router{
-  /* margin-top: 12%; */
 }
 #audio{
   position: absolute;
   bottom: -5rem;
 }
-/* .fade-enter-active{
-  animation: bounceInRight .5s;
-}
-.fade-leave-active{
-  animation: bounceInleft .2s;
-} */
 </style>

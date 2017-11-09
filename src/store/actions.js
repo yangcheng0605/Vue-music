@@ -8,16 +8,6 @@ export default {
       store.commit('GET_RECOMMEND', res.data.song_list)
     })
   },
-  // 获取列表歌曲URL
-  // getRecommendShowLink (store) {
-  //   var recommendid = store.state.recommendID
-  //   for (let i = 0; i < recommendid.length; i++) {
-  //     http.get('/api/v1/restserver/ting?method=baidu.ting.song.play&songid=' + recommendid[i])
-  //     .then(res => {
-  //       store.commit('GET_RECOMMEND_SHOWLINK', res.data)
-  //     })
-  //   }
-  // },
   // 获取新歌榜歌曲
   // getNewsong (store) {
   //   return http.get('/api/v1/restserver/ting?method=baidu.ting.billboard.billList&type=1&size=30&offset=0')
@@ -120,7 +110,7 @@ export default {
   },
   // 获取歌手列表
   getSinger (store) {
-    return http.get('/api/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.artist.get72HotArtist&format=jsonℴ=1&offset=0&limit=70')
+    return http.get('/api/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.artist.get72HotArtist&format=jsonℴ=1&offset=0&limit=100')
     .then(res => {
       console.log(res.data)
       store.commit('GET_SINGER', res.data)
@@ -128,9 +118,10 @@ export default {
   },
   // 获取选中歌手的歌曲列表
   getsingerMsg(store, item) {
-    return http.get('/api/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.artist.getSongList&format=jsonℴ=2&tinguid=' + item.ting_uid +'&offset=0&limits=50')
+    return http.get('/api/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.artist.getSongList&format=jsonℴ=2&tinguid=' + item.ting_uid +'&offset=0&limits=30')
     .then(res => {
-      store.commit('GET_SINGER_MSG', res.data.songlist)
+      var obj = { songlist: res.data.songlist, item: item}
+      store.commit('GET_SINGER_MSG', obj)
     })
   }
 }

@@ -65,8 +65,10 @@ export default {
   GET_SINGER (state, data) {
     state.singer = data.artist
   },
-  GET_SINGER_MSG (state, data) {
-    state.singerlist = data
+  GET_SINGER_MSG (state, obj) {
+    state.singerlist = obj.songlist
+    state.singerItem = obj.item
     console.log(state.singerlist)
+    console.log(state.singerItem)
   }
 }

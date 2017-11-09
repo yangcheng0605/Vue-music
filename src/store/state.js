@@ -27,6 +27,8 @@ export default {
   searchList: [],
   // 存放歌手
   singer: [],
+  // 存放选中歌手
+  singerItem: {},
   // 存放歌手的歌曲
   singerlist: []
 }
