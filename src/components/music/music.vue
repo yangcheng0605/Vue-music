@@ -10,9 +10,9 @@
         <router-link to="/music/hito" tag="li" :class="{hover:this.$route.path==='/music/hito'}">Hito中文</router-link>
       </ul>
     </div>
-    <!-- <transition name="fade2"> -->
+    <transition name="fade2">
       <router-view id="router2"></router-view>
-    <!-- </transition> -->
+    </transition>
   </div>
 </template>
 <script>
@@ -49,12 +49,9 @@ export default {
 }
 #router2{
   margin-top: 22%;
-  transition: all 1s ease;
+  transition: all .5s ease;
 }
-.fade2-enter-active{
-  animation: swing 1s;
-}
-.fade2-leave-active{
-  animation: slideOutRight 1s;
+.fade2-enter-active, .fade2-leave-active {
+  opacity: 0
 }
 </style>

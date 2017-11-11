@@ -29,6 +29,10 @@ export default {
   singer: [],
   // 存放选中歌手
   singerItem: {},
-  // 存放歌手的歌曲
-  singerlist: []
+  // 存放歌手歌曲列表
+  singerlist: [],
+  // 存放歌手专辑列表
+  singerSpecial: [],
+  // 存放歌手详细信息
+  singMsg: []
 }

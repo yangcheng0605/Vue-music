@@ -54,6 +54,7 @@ export default {
   UPDATE_TIME (state, updataTm) {
     state.updateTime = updataTm.toFixed(2)
   },
+  // 获取搜索页面的歌曲ID，列表
   GET_SEARCH (state, obj) {
     state.searchID = []
     state.searchList = []
@@ -62,13 +63,23 @@ export default {
     console.log(state.searchSongID)
     console.log(state.searchList)
   },
+  // 获取歌手列表
   GET_SINGER (state, data) {
     state.singer = data.artist
   },
+  // 获取歌手信息，歌曲列表
   GET_SINGER_MSG (state, obj) {
     state.singerlist = obj.songlist
     state.singerItem = obj.item
-    console.log(state.singerlist)
     console.log(state.singerItem)
+  },
+  // 获取歌手专辑
+  GET_SPECIAL (state, data) {
+    state.singerSpecial = data
+  },
+  // 获取歌手详细信息
+  GET_Msg (state, data) {
+    state.singMsg = data
+    console.log(state.singMsg)
   }
 }

@@ -123,5 +123,20 @@ export default {
       var obj = { songlist: res.data.songlist, item: item}
       store.commit('GET_SINGER_MSG', obj)
     })
+  },
+  // 获取歌手专辑
+  getSpecial (store, item) {
+    return http.get('/api/v1/restserver/ting?from=android&version=5.6.5.0&method=baidu.ting.artist.getAlbumList&format=json&order=1&tinguid=' + item.ting_uid +'&offset=0&limits=30')
+    .then(res => {
+      var data = res.data
+      store.commit('GET_SPECIAL', data)
+    })
+  },
+  getMsg(store, item) {
+    return http.get('/api/v1/restserver/ting?method=baidu.ting.artist.getInfo&tinguid=' + item.ting_uid)
+      .then(res => {
+        var data = res.data
+        store.commit('GET_Msg', data)
+    })
   }
 }

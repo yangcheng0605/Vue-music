@@ -47,7 +47,7 @@ export default {
   data () {
     return {
       liIndex: 0,
-      isPlaying: true
+      isPlaying: false
     }
   },
   methods: {

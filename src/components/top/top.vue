@@ -6,7 +6,7 @@
       </md-button>
       <h3 id="h3"> <span>V</span> ue音乐</h3>
       <marquee style="display:inline-block;width:50%">
-        <span id="playhint" v-show="this.playsong.song_id !== undefined">正在播放：{{playsong.title}}…</span>
+        <span id="playhint" v-show="this.playsong.song_id !== undefined" @click="goplay">正在播放：{{playsong.title}}…</span>
       </marquee>
       <router-link to="/search">
         <p class="iconfont icon-search searchIcon"></p>
@@ -91,6 +91,9 @@ export default {
     close (ref) {
       console.log('关闭d: ' + ref)
       this.zBol = false
+    },
+    goplay () {
+      this.$router.push('/play')
     }
   },
   computed: {

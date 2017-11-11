@@ -16,27 +16,53 @@
                 <md-ink-ripple />
               <div id="singerMsg_hint">
                   <md-ink-ripple />
-                  <p>{{singItem.name}}</p><span>歌手详情》</span>
+                  <p>{{singItem.name}}</p>
                   <p>{{singItem.country}}</p> 
               </div>
             </md-card>
         </div>
     <div id="songslist" >
-      <ul>
-        <li v-for="(item,index) in singlist" :key="item.id" :class="{active:songslistIndex === index}" @click="getItem(item,index)">
-          <span>{{index}}</span><span>{{item.title}}</span>
-         
-          </li>
-      </ul>
+      <div>
+        <ol>
+          <li :class="{li:defaultIndex === 0}"><span>歌曲列表</span> </li>
+          <li :class="{li:defaultIndex === 1}"><span>歌手专辑</span></li>
+          <li :class="{li:defaultIndex === 2}"><span>歌手信息</span></li>
+        </ol>
+      </div>
+      <mt-swipe :auto="0" :showIndicators="false" :defaultIndex='defaultIndex' @change="handleChange">
+        <mt-swipe-item>
+            <songList></songList>
+        </mt-swipe-item>
+        <mt-swipe-item>
+            <special></special>
+        </mt-swipe-item>
+        <mt-swipe-item>
+          <singMsg></singMsg>
+        </mt-swipe-item>
+      </mt-swipe>
+    </div>
     </div>
   </div>
 </template>
 <script>
+import songList from './songList/songList'
+import special from './special/special'
+import singMsg from './singeMsg/singMsg'
 export default {
+  created () {
+    this.$store.dispatch('getSpecial', this.singItem)
+    this.$store.dispatch('getMsg', this.singItem)
+  },
   data () {
     return {
-      songslistIndex: 0
+      songslistIndex: 0,
+      defaultIndex: 0
     }
+  },
+  components: {
+    songList,
+    special,
+    singMsg
   },
   computed: {
     singlist () {
@@ -44,11 +70,6 @@ export default {
     },
     singItem () {
       return this.$store.state.singerItem
-    },
-    tive () {
-      var hint = document.getElementById('singerMsg_hint')
-      console.log(hint)
-      console.log(hint.offsetTop)
     }
   },
   methods: {
@@ -64,9 +85,13 @@ export default {
           this.$store.dispatch('getSongLrc', item)
         })
       }
+    },
+    handleChange (index) {
+      this.defaultIndex = index
+    },
+    test () {
+      console.log('popup')
     }
-  },
-  watch: {
   }
 }
 </script>
@@ -151,29 +176,72 @@ export default {
 #songslist{
   width: 100%;
   height: 70%;
-  background: #ccc;
+  background: #000;
   margin-top: 10px;
 }
 #songslist ul{
   background: #000;
 }
-#songslist li{
+#songslist ul li{
   margin-top: 0;
   width: 100%;
   height: 4rem;
-  line-height: 4rem;
   color: #eee;
   background: #222;
   border-bottom: 1px solid #fff;
 }
-#songslist li span:nth-of-type(1){
-  padding:0 2rem;
+#songslist ol{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  margin-bottom: 5px;
+}
+#songslist ol li{
+  width: 33.3%;
+  height: 3rem;
+  line-height: 3rem;
+  color:#fff;
+  text-align: center;
+}
+#songslist ol li span{
+  padding-right: 3rem;
+  margin-left: 2.6rem;
+  border-right: 1px solid #fff;
+}
+#songslist ol li:last-of-type span{
+  border-right:none;
+}
+#songslist ul li span:nth-of-type(1){
+  float: left;  
+  padding:1rem 2rem 0;
+}
+#songslist li span:nth-of-type(2){
+  line-height: 3rem;
+  display: inline-block;
+  width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #singerMsg_hint span{
   float: right;
 }
+.mint-swipe-items-wrap > div{
+  position: fixed;
+  overflow: scroll;
+  height: 53%;
+}
+.mint-swipe-item{
+  background: #333;
+}
 #songslist .active{
   background: #fff;
   color: #000;
+}
+#songslist .li{
+  background: #fff;
+  color: #000;
+  transform: translate(10px);
+  transition: all .5s ;
 }
 </style>
