@@ -3,7 +3,7 @@
   <div class="tabBar">
     <md-bottom-bar  md-shift>
       <md-ink-ripple />
-      <md-bottom-bar-item @click="gotoH('purple')" md-icon="person" class="md-body">Mine</md-bottom-bar-item>
+      <md-bottom-bar-item @click="gotoH('purple')" md-icon="person">Mine</md-bottom-bar-item>
       <md-bottom-bar-item @click="gotoR('teal')" md-icon="music_note" md-active>Music</md-bottom-bar-item>
       <md-bottom-bar-item @click="gotoM('brown')" md-icon="equalizer">Singer</md-bottom-bar-item>
       <md-bottom-bar-item @click="gotoT('cyan')" md-icon="forum">talk</md-bottom-bar-item>

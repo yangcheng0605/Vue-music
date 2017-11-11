@@ -122,26 +122,27 @@ export default {
   background: rgba(0,0,0,.5);
   border-radius: 50%;
   margin:1rem 2rem 0 1rem;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   color:#fff;
 }
 #i2{
   float: right;
+  font-size: 17px;
   padding-left: .5rem;
 }
 #i{
-  font-size: 40px;
+  font-size: 30px;
 }
 #singerMsg{
   width: 100%;
-  height: 22rem;
+  height: 18rem;
   overflow: hidden;
   background: #000;
 }
 #singercenter{
   width: 100%;
-  height: 22rem;
+  height: 18.5rem;
   position: absolute;
   top: 0;
 }
@@ -155,7 +156,8 @@ export default {
 }
 #singercenter img{
   width:41%;
-  margin:4rem 0 0 2rem;
+  margin:3rem 0 0 2rem;
+  border-radius: .5rem;
 }
 #singerMsg_hint{
   width: 100%;

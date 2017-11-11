@@ -49,7 +49,7 @@ export default {
   line-height: 2.5rem;
 }
 #smallbox #s1{
-  margin-left: 40%;
+  margin-left: 35%;
 }
 #smallbox #s1 span,.s2{
   margin-left: 2%;

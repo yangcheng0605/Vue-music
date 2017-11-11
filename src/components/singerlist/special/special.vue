@@ -47,7 +47,7 @@ export default {
 }
 #specialbox ul li {
   width: 30%;
-  height: 30%;
+  height: 35%;
   margin-top: 0;
   background: #fff;
   margin-bottom: 2rem;
