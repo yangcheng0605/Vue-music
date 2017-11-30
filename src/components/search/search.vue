@@ -89,6 +89,7 @@ export default {
       }
       this.$router.push('/play')
     },
+    // 暂停播放
     play_stop (item) {
       console.log(item)
       var audio = document.querySelector('#audio')

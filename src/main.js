@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 // mint-ui
-import { InfiniteScroll, Swipe, SwipeItem, Progress, Lazyload, Toast, Indicator, IndexList, IndexSection } from 'mint-ui'
+import { InfiniteScroll, Swipe, SwipeItem, Progress, Lazyload, Toast, Indicator, IndexList, IndexSection, MessageBox } from 'mint-ui'
 import '@/components/reset'
 // vue-material ui
 import VueMaterial from 'vue-material'
@@ -19,6 +19,7 @@ Vue.use(Lazyload)
 Vue.prototype.$tos = Toast
 Vue.prototype.$idc = Indicator
 Vue.prototype.$http = axios
+Vue.prototype.$msg = MessageBox
 // mint-ui
 Vue.use(VueMaterial)
 Vue.component(Swipe.name, Swipe)

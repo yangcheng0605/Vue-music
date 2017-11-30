@@ -2,7 +2,7 @@
   <div id="top">
     <md-toolbar id="top_top">
       <md-button class="md-icon-button" @click="toggleLeftSidenav">
-        <md-icon>menu</md-icon>
+        <md-icon >menu</md-icon>
       </md-button>
       <h3 id="h3"> <span>V</span> ue音乐</h3>
       <marquee style="display:inline-block;width:50%">
@@ -19,9 +19,13 @@
           <h3 class="md-title">个人信息</h3>
         </div>
         <md-avatar class="md-large md-d1" >
-          <div id="userIcon">
-            <img src="./2.png" alt="People">
-            <p class="md-body-2">Your Name <span class="iconfont icon-vip"></span></p>
+          <div id="userIcon" v-if="this.userLogin === false">
+            <p class="loging">未登录账号</p>
+            <p><span @click="gotoLogin"> 登录</span> <span @click="gotoRegister">注册</span></p>
+          </div>
+          <div id="userIcon" v-if="this.userLogin === true">
+            <img :src="userMsg[0].headimg" alt="People">
+            <p class="md-body-2">{{userMsg[0].name}}<span class="iconfont icon-vip"></span></p>
           </div>
         </md-avatar>
       </md-toolbar>
@@ -87,6 +91,10 @@ export default {
     open (ref) {
       console.log('Opened: ' + ref)
       this.zBol = true
+      console.log(this.userMsg)
+      if (this.user === false) {
+        this.$msg('您还未登陆账号!', '请点左上方登陆按钮进行登录')
+      }
     },
     close (ref) {
       console.log('关闭d: ' + ref)
@@ -94,11 +102,26 @@ export default {
     },
     goplay () {
       this.$router.push('/play')
+    },
+    gotoLogin () {
+      this.$router.push('/login')
+    },
+    gotoRegister () {
+      this.$router.push('/register')
     }
   },
   computed: {
     playsong () {
       return this.$store.state.playItem
+    },
+    userLogin () {
+      return this.$store.state.userLogin
+    },
+    user () {
+      return this.$store.state.userLogin
+    },
+    userMsg () {
+      return this.$store.state.userMsg
     }
   }
 }
@@ -175,8 +198,29 @@ export default {
   padding-top:1rem;
   padding-left: 1rem;
 }
+.loging{
+  font-size: 16px;
+  color:#aaa;
+  text-decoration: underline;
+  padding-left: 2.5rem;
+}
 .md-toolbar{
   min-height:45px;
+}
+#userIcon p:nth-of-type(2){
+  margin-top: 10px;
+  font-size: 16px;
+  color: #fff;
+}
+#userIcon span{
+  border: 1px  solid  #ccc;
+  padding: 0 1rem;
+}
+#userIcon span:nth-of-type(2){
+  margin-left:1.5rem;
+}
+#userIcon span:hover{
+  background: rgba(0,0,0,.5);
 }
 .zi2{
   z-index: 10;

@@ -110,7 +110,7 @@ export default {
   },
   // 获取歌手列表
   getSinger (store) {
-    return http.get('/api/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.artist.get72HotArtist&format=jsonℴ=1&offset=0&limit=100')
+    return http.get('/api/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.artist.get72HotArtist&format=jsonℴ=1&offset=0&limit=50')
     .then(res => {
       console.log(res.data)
       store.commit('GET_SINGER', res.data)
@@ -132,11 +132,44 @@ export default {
       store.commit('GET_SPECIAL', data)
     })
   },
+  // 获取歌手详情
   getMsg(store, item) {
     return http.get('/api/v1/restserver/ting?method=baidu.ting.artist.getInfo&tinguid=' + item.ting_uid)
       .then(res => {
         var data = res.data
         store.commit('GET_Msg', data)
+    })
+  },
+  // 用户注册
+  saveMsg (store, obj) {
+    var phone = obj.numValue
+    var name = obj.userName
+    // 判断用户是否注册过
+    return http.get('http://localhost:8081/user?phone=' + Number(phone))
+    .then(res => {
+      if (res.data.length > 0) {
+        return {msg: '该手机号已经注册,过返回上一页登录'}
+      } else {  // 没有就添加
+        let newobj = {
+          phone: phone,
+          name: name,
+          Vip: false,
+          favorite:[],
+          user2:[],
+          headImg:'http://d.lanrentuku.com/down/png/1004/zoom_eyed_creatures/monkeys_audio.png',
+        }
+        return http.get('http://localhost:8081/user?phone=')
+          .then(res => {
+            return http.post('http://localhost:8081/user?', newobj)
+            .then(res => {
+              // 注册成功->保存
+              console.log(res.data)
+              store.commit('SAVE_MSG', res.data)
+              store.state.userLogin = true
+              return {msg: '注册成功'}
+          })
+        })
+      }
     })
   }
 }

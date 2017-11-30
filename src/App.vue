@@ -1,11 +1,11 @@
 <template>
   <div class="app">
-    <top v-show="this.$route.path != '/play' && this.$route.path != '/search' && this.$route.path != '/singlist'"></top>
+    <top v-show="this.$route.path != '/play' && this.$route.path != '/search' && this.$route.path != '/singlist' && this.$route.path != '/login' && this.$route.path != '/register'"></top>
         <transition name="fade">
        <router-view id="router"/>
-           </transition>
+        </transition>
 
-    <tabBar v-show="this.$route.path != '/play' && this.$route.path != '/search' && this.$route.path != '/singlist'"></tabBar>
+    <tabBar v-show="this.$route.path != '/play' && this.$route.path != '/search' && this.$route.path != '/singlist' && this.$route.path != '/login' && this.$route.path != '/register'"></tabBar>
      <audio id="audio" :src="this.playSong" autoplay style="hight=50px" @timeupdate= 'updateTime' @loadedmetadata="totlaTm" @ended="changeRight()" ></audio>
   </div>
 </template>

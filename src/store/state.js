@@ -34,5 +34,11 @@ export default {
   // 存放歌手专辑列表
   singerSpecial: [],
   // 存放歌手详细信息
-  singMsg: []
+  singMsg: [],
+  // 存放用户登录状态
+  userLogin: false,
+  // 存放用户数据
+  userMsg: [],
+  // 当前用户
+  login: []
 }

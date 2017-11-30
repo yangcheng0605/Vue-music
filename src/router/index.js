@@ -21,6 +21,10 @@ const play = resolve => require(['@/components/play/play'], resolve)
 const search = resolve => require(['@/components/search/search'], resolve)
 // 歌手详情页面
 const singlist = resolve => require(['@/components/singerlist/singlist'], resolve)
+// 用户登录页面
+const login = resolve => require(['@/components/user/login.vue'], resolve)
+// 用户注册页面
+const register = resolve => require(['@/components/user/register.vue'], resolve)
 
 Vue.use(Router)
 
@@ -80,6 +84,14 @@ export default new Router({
     {
       path: '/singlist',
       component: singlist
+    },
+    {
+      path: '/login',
+      component: login
+    },
+    {
+      path: '/register',
+      component: register
     }
   ]
 })

@@ -15,6 +15,7 @@
     "json-server": "^0.12.0",
     "jsonp": "^0.2.1",
     "mint-ui": "^2.2.9",
+    "mockjs": "^1.0.1-beta3",
     "vue": "^2.5.2",
     "vue-material": "^0.8.1",
     "vue-router": "^3.0.1",

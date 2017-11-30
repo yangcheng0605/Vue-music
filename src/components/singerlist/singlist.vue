@@ -65,9 +65,11 @@ export default {
     singMsg
   },
   computed: {
+    // 获取歌手列表
     singlist () {
       return this.$store.state.singerlist
     },
+    // 获取当前选中歌曲
     singItem () {
       return this.$store.state.singerItem
     }
@@ -88,9 +90,6 @@ export default {
     },
     handleChange (index) {
       this.defaultIndex = index
-    },
-    test () {
-      console.log('popup')
     }
   }
 }

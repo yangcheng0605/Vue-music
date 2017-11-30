@@ -80,18 +80,12 @@ export default {
     /* eslint-disable */
     // 当前播放的歌曲
     playItem () {
-      if(this.$store.state.playItem === undefined){
-        this.$router.push('/music/recommend')
-      } else {
-        var value = this.$store.state.playItem
-        if (value.title.versions === '') {
-          return this.$store.state.playItem
-          } else if (value.title.versions === undefined) {
-          value.title = value.title.replace(/\<[^\>]+\>/g,"")
-          value.author = value.author.replace(/\<[^\>]+\>/g,"")
-          return value
-        }
-      }
+      var value = this.$store.state.playItem
+      // if (value.versions === undefined) {
+      //   value.title = value.title.replace(/\<[^\>]+\>/g,"")
+      //   value.author = value.author.replace(/\<[^\>]+\>/g,"")
+        return value
+      // }
     },
     // 当前播放的歌曲ID
     playID () {
@@ -177,7 +171,7 @@ export default {
       this.rollBol = true
       this.up = 5
       this.$store.dispatch('changeRight', this.playItem)
-      this.$store.dispatch('getSongLrc', this.playItem)
+      this.$store.dispatch('getSongLrc', this.playItemx)
     },
     changeLeft () {
       this.rollBol = true
@@ -426,11 +420,11 @@ input[type='range']::-webkit-slider-thumb{
   width:25px;
   height:25px;
   border-radius: 10px;
-  margin-top: -2px; /*使滑块超出轨道部分的偏移量相等*/
+  margin-top: -2px; 
   background: #fff; 
-  border-radius: 50%; /*外观设置为圆形*/
-  border: solid 0.125em rgba(230, 195, 131, 0.5); /*设置边框*/
-  box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+  border-radius: 50%; 
+  border: solid 0.125em rgba(230, 195, 131, 0.5);
+  box-shadow: 0 .125em .125em #3b4547; 
 }
 #lrc{
   animation: dh 4s infinite alternate;
